@@ -7,14 +7,7 @@ const stripe = require('stripe')("sk_test_51P312RSEbzC1lRyqBXyqG1PwSGJuQdbvVs6g5
 
 // Import middleware
 app.use(express.json());
-app.use(
-    cors({
-      credentials: true,
-      // origin: ["http://localhost:4200"],
-  
-      origin: ["https://e-commerce-frontend-roan-delta.vercel.app"]
-    })
-  );
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
