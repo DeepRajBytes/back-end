@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
 // // Import middleware
 app.use(express.json());
@@ -19,16 +19,16 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// const uri="mongodb+srv://deviflair2020:admin@cluster0.bwhbeak.mongodb.net/"
+const uri="mongodb+srv://deviflair2020:admin@cluster0.bwhbeak.mongodb.net/"
 
-// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-//     .then(() => {
-//         console.log('Connected to MongoDB');
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Connected to MongoDB');
         
-//     })
-//     .catch(error => {
-//         console.error('Error connecting to MongoDB:', error);
-//     });
+    })
+    .catch(error => {
+        console.error('Error connecting to MongoDB:', error);
+    });
 
 
 
@@ -64,7 +64,7 @@ app.use(bodyParser.json());
 // app.use('/api/reviews',reviewroute);
 
 app.get('/', (req, res) => {
-    return res.status(200).send({ message: "all is well", status: true });
+    return res.status(200).send({ message: "all is well and fine", status: true });
 });
 
 
