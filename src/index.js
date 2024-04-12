@@ -32,36 +32,36 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 
-// // Routes import
-// const authroutes = require('./routes/auth.routes')
-// app.use('/auth', authroutes);
+// Routes import
+const authroutes = require('./routes/auth.routes')
+app.use('/auth', authroutes);
 
-// const userroutes = require('./routes/user.routes')
-// app.use('/api/users', userroutes);
+const userroutes = require('./routes/user.routes')
+app.use('/api/users', userroutes);
 
-// const productroute = require('./routes/product.routes')
-// app.use('/api/products/',productroute);
+const productroute = require('./routes/product.routes')
+app.use('/api/products/',productroute);
 
-// const adminproduct = require('./routes/adminproduct.routes')
-// app.use('/api/admin/products/',adminproduct);
+const adminproduct = require('./routes/adminproduct.routes')
+app.use('/api/admin/products/',adminproduct);
 
-// const cartroute = require('./routes/cart.routes')
-// app.use('/api/cart/',cartroute);
+const cartroute = require('./routes/cart.routes')
+app.use('/api/cart/',cartroute);
 
-// const cartitemroute = require('./routes/cartitem.routes')
-// app.use('/api/cart_items/',cartitemroute)
+const cartitemroute = require('./routes/cartitem.routes')
+app.use('/api/cart_items/',cartitemroute)
 
-// const orderroute = require('./routes/order.routes')
-// app.use('/api/orders',orderroute);
+const orderroute = require('./routes/order.routes')
+app.use('/api/orders',orderroute);
 
-// const adminorderroute = require('./routes/adminorder.routes');
-// app.use('/api/admin/orders',adminorderroute);
+const adminorderroute = require('./routes/adminorder.routes');
+app.use('/api/admin/orders',adminorderroute);
 
-// const ratingroute = require("./routes/rating.routes");
-// app.use('/api/ratings',ratingroute);
+const ratingroute = require("./routes/rating.routes");
+app.use('/api/ratings',ratingroute);
 
-// const reviewroute = require('./routes/review.routes');
-// app.use('/api/reviews',reviewroute);
+const reviewroute = require('./routes/review.routes');
+app.use('/api/reviews',reviewroute);
 
 app.get('/', (req, res) => {
     return res.status(200).send({ message: "all is well and fine", status: true });
