@@ -1,7 +1,7 @@
 // app.js
-// const express = require('express');
+const express = require('express');
 // const cors = require('cors');
-// const app = express();
+const app = express();
 // const stripe = require('stripe')("sk_test_51P312RSEbzC1lRyqBXyqG1PwSGJuQdbvVs6g5mAxrTyIhHSRUoodvc8fi6NmBNkzgKsQuq8sj6QaoHwwNcYpXBhO00FGUZhxqN"); // Replace with your actual secret key
 // const mongoose = require('mongoose')
 
@@ -63,18 +63,18 @@
 // const reviewroute = require('./routes/review.routes');
 // app.use('/api/reviews',reviewroute);
 
-// app.get('/', (req, res) => {
-//     return res.status(200).send({ message: "all is well", status: true });
-// });
+app.get('/', (req, res) => {
+    return res.status(200).send({ message: "all is well", status: true });
+});
 
 
-// const PORT = 5200;
+const PORT = 5200;
 
 
 
-// app.listen(PORT, async() => {
-//     console.log('Server running successfully on port', PORT);
-// });
+app.listen(PORT, async() => {
+    console.log('Server running successfully on port', PORT);
+});
 
 //upon here 
 
@@ -135,19 +135,19 @@
 
 
 
-const express = require('express');
- const app =  express(); 
- const port = 3000;
+// const express = require('express');
+//  const app =  express(); 
+//  const port = 3000;
 
- app.get('/',(req,res)=>{
-    res.send('connected done again')
- });
+//  app.get('/',(req,res)=>{
+//     res.send('connected done again')
+//  });
 
- app.get('/user',(req,res)=>{
+//  app.get('/user',(req,res)=>{
  
-    res.send('hiiii')
- });
+//     res.send('hiiii')
+//  });
 
- app.listen(port,() => {
-    console.log('http://localhost:',port);
- })
+//  app.listen(port,() => {
+//     console.log('http://localhost:',port);
+//  })
