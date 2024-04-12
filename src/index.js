@@ -3,14 +3,32 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const stripe = require('stripe')("sk_test_51P312RSEbzC1lRyqBXyqG1PwSGJuQdbvVs6g5mAxrTyIhHSRUoodvc8fi6NmBNkzgKsQuq8sj6QaoHwwNcYpXBhO00FGUZhxqN"); // Replace with your actual secret key
-
+const mongoose = require('mongoose')
 
 // Import middleware
 app.use(express.json());
-
+app.use(
+    cors({
+      credentials: true,
+      // origin: ["http://localhost:4200"],
+  
+      origin: ["https://e-commerce-frontend-roan-delta.vercel.app"]
+    })
+  );
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+const uri="mongodb+srv://deviflair2020:admin@cluster0.bwhbeak.mongodb.net/"
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Connected to MongoDB');
+        
+    })
+    .catch(error => {
+        console.error('Error connecting to MongoDB:', error);
+    });
 
 
 
@@ -49,7 +67,17 @@ app.get('/', (req, res) => {
     return res.status(200).send({ message: "all is well", status: true });
 });
 
-module.exports = app;
+
+const PORT = 5200;
+
+
+
+app.listen(PORT, async() => {
+    console.log('Server running successfully on port', PORT);
+});
+
+
+
 
 
 
