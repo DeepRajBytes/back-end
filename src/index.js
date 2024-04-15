@@ -7,15 +7,15 @@ const mongoose = require('mongoose')
 
 // // Import middleware
 app.use(express.json());
-app.use(cors());
-// app.use(
-//     cors({
-//       credentials: true,
-//       // origin: ["http://localhost:4200"],
+// app.use(cors());
+app.use(
+    cors({
+      credentials: true,
+    //   origin: ["http://localhost:4200"],
   
-//       origin: [""]
-//     })
-//   );
+      origin: ["https://e-commerce-frontend-roan-delta.vercel.app"]
+    })
+  );
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
