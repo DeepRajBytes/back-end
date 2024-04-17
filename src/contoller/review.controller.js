@@ -12,6 +12,7 @@ const  createreview  = async (req,res) =>{
 const  getreview  = async (req,res) =>{
     user = req.user;
     productId = req.params.productId
+    
     try {
         const review = await reviewService.getallreview(productId)
         return res.status(200).send(review)

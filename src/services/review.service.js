@@ -10,12 +10,18 @@ async function createReview(reqData,user){
         review: reqData.review,
         createdAt:new Date(),
     })
+
+    await review.save()
+
+    product.reviews.push(review._id);
     await product.save();
-    return await review.save();
+
+    return review;
+    ;
 }
 
 async function getallreview(productId){
-    const product = await ProductService.findproductbyid(reqData.productId)
+    const product = await ProductService.findproductbyid(productId)
 
     return await Review.find({product:productId}).populate("user");
 }

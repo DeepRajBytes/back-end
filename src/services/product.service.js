@@ -1,8 +1,7 @@
 
-const { json } = require("stream/consumers");
 const Category = require("../models/category.model");
 const Product = require("../models/product.model");
-const { error } = require("console");
+
 
 
 async function createproduct(reqData) {
@@ -70,7 +69,10 @@ async function updateproduct(reqData,productId){
 }
 
 async function findproductbyid(productId){
-    const product = await Product.findById(productId).populate('category').exec();
+    const product = await Product.findById(productId).populate({
+        path: 'reviews',
+        populate: { path: 'user' } 
+    }).populate('category').exec();
   
     if(!product){
         throw new Error("product does not found",productId)
