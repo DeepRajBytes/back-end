@@ -10,13 +10,15 @@ async function createReview(reqData,user){
         review: reqData.review,
         createdAt:new Date(),
     })
-
+   
+   
+    review.user = user
     await review.save()
+    product.reviews.push(review);
 
-    product.reviews.push(review._id);
     await product.save();
-
-    return review;
+     
+    return product;
     ;
 }
 
