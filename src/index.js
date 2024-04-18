@@ -40,6 +40,9 @@ app.use('/auth', authroutes);
 const userroutes = require('./routes/user.routes')
 app.use('/api/users', userroutes);
 
+const addressroute  = require("./routes/address.routes")
+app.use('/api/users/address',addressroute)
+
 const productroute = require('./routes/product.routes')
 app.use('/api/products/',productroute);
 

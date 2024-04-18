@@ -17,7 +17,6 @@ const removecartitem = async (req,res) =>{
     const user = await req.user
     try {
        const raj = await cartItemService.removecartitem(user._id,req.params.id)
-       console.log("raj is ", raj)
      return res.status(200).send(raj)
 
     } catch (error) {
