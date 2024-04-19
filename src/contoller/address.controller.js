@@ -1,8 +1,7 @@
 const addressService = require('../services/address.service')
 
 const createaddress = async (req,res)=>{
-    const userID = req.user._id
-    console.log("chuka chuha mujho chua");
+    const userID = req.user
     try {
         const address = await addressService.createaddress(userID , req.body)
         
@@ -11,4 +10,17 @@ const createaddress = async (req,res)=>{
         res.status(404).send({error:error.message})
     }
 }
-module.exports = {createaddress}
+
+const updateaddress = async(req,res)=>{
+    const userID =  req.user._id
+    const data = {id:req.body.id , reqdata: req.body.reqdata}
+   
+    try {
+        const user = await addressService.updateaddress(userID,data)
+        console.log("user is", user)
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(404).send({error:error.message})
+    }
+}
+module.exports = {createaddress , updateaddress}

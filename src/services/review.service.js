@@ -1,9 +1,12 @@
 const Review = require('../models/review.model');
 const ProductService = require( "../services/product.service")
+const User = require('../models/user.model')
+
 
 async function createReview(reqData,user){
     const product = await ProductService.findproductbyid(reqData.productId)
-
+    const Userdata = await User.findById(user._id)
+   
     const review = new Review({
         user: user._id ,
         product:product._id,
@@ -11,10 +14,13 @@ async function createReview(reqData,user){
         createdAt:new Date(),
     })
    
-   
     review.user = user
     await review.save()
+
+    Userdata.review.push(review);
+   
     product.reviews.push(review);
+
 
     await product.save();
      

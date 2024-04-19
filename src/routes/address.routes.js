@@ -7,4 +7,6 @@ const authenticate = require("../middleware/authenticate");
 
 router.post("/add",authenticate,addressController.createaddress)
 
+router.put("/update",authenticate,addressController.updateaddress)
+
 module.exports = router
