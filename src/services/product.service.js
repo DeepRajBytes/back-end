@@ -44,6 +44,7 @@ async function createproduct(reqData) {
         brand:reqData.brand,
         price:reqData.price,
         size:reqData.size,
+        images:reqData.images,
         quantity:reqData.quantity,
         category:thirdLevel._id
   })
