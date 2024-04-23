@@ -25,10 +25,11 @@ const createUser = async (userdata) => {
         return user;
     } 
     catch (error) {
-        if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
-            throw new Error("Email address is already in use");
-        }
-        throw new Error("Something went wrong while creating user: " + error.message);
+        
+        // if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
+        //     throw new Error("Email address is already in use");
+        // }
+        return error;
     }
     };
 

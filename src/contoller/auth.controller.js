@@ -4,11 +4,23 @@ const cartService = require('../services/cart.service');
 const bcrypt = require('bcrypt');
 
 const register = async (req, res) => {
-    
-        const user = await userservice.createUser(req.body);
+        try {
+            const user = await userservice.createUser(req.body);
+
+            if(!user){
+                throw new Error("user alredy present")
+            }
+
         const JWT = await jwtgenerator.generatetoken(user._id);
         await cartService.createCart(user);
         return res.status(200).send({ JWT, message: "Register Success" });
+        
+        } catch (error) {
+            // console.log(error)
+            return res.status(400).send(error)
+            // return res.status(400).send({message:"user exist"})
+        }
+        
     
 };
 
