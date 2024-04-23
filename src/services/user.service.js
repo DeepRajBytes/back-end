@@ -104,6 +104,18 @@ const updateUser = async (userId, updatedUserData) => {
     }
 };
 
+const wishlist= async(userid) => {
+    try {
+        const user = await users.findById(userid).populate("wishlist");
+        if(!user){
+            throw new Error("User does not found"); 
+        }
+        return user.wishlist;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
 
 module.exports = {
     createUser,
@@ -111,5 +123,7 @@ module.exports = {
     finduserbyemail,
     finduserbytoken,
     getalluser,
-    updateUser
+    updateUser,
+    wishlist
+    
 }

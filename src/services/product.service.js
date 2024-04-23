@@ -1,7 +1,8 @@
 
 const Category = require("../models/category.model");
 const Product = require("../models/product.model");
-
+const user = require("../models/user.model");
+const userdata = require("../models/user.model")
 
 
 async function createproduct(reqData) {
@@ -59,9 +60,7 @@ async function createproduct(reqData) {
 
 async function deleteproduct(productId){
     const product = await findproductbyid(productId)
-   
     await Product.findByIdAndDelete(productId);
-   
     return "product Removed";
 }
 
@@ -176,6 +175,40 @@ async function createMultipleProduct(products){
     }
 }
 
+async function addProductToWishlist(userId, productId) {
+    try {
+        
+        const user = await userdata.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        // console.log("user is ", user);
+
+       
+        const product = await findproductbyid(productId);
+        if (!product) {
+            throw new Error('Product not found');
+        }
+        // console.log("product is ", product);
+
+        
+        if (!user.wishlist.includes(productId)) {
+           
+            user.wishlist.push(product);
+            await user.save();
+            // console.log('Product added to wishlist successfully',user);
+            return {message:"product successfully add"};
+            
+        } else {
+            console.log('Product is already in the wishlist');
+        }
+    } catch (error) {
+        console.error('Error adding product to wishlist:', error.message);
+    }
+    
+    
+}
+
 
 
 module.exports={
@@ -185,165 +218,7 @@ module.exports={
      getAllProducts,
      findproductbyid,
      createMultipleProduct,
-     findproductbyParticularcategory
+     findproductbyParticularcategory,
+     addProductToWishlist
 }
-
-
-
-// aaj ka he ye
-// async function getAllProducts(reqQuery) {
-//     let { category, color, sizes, minPrice, maxPrice, minDiscount, sort, stock, pageSize, pageNumber } = reqQuery;
-
-//     pageSize = parseInt(pageSize) || 10; 
-//     pageNumber = parseInt(pageNumber) || 1;  
-
-//     let query = Product.find().populate("category");
-    
-
-//     if (category) {
-//         const exist = await Category.findOne({ name: category });
-        
-//         if (exist) {
-//             query = query.where("category").equals(exist._id);
-            
-//         } else {
-//             return { content: [], currentPage: 1, totalPages: 0 };
-//         }
-//     }               
-
-//     if (color) {
-//        const colorSet = new Set(color.split(",").map(color => color.trim().toLowerCase()));
-//         const colorRegex = colorSet.size > 0 ? RegExp([...colorSet].join("|"), "i") : null;
-//         query = query.where("color").regex(colorRegex);
-//     }
-
-//     if (sizes) {
-//         const sizesSet = new Set(sizes);
-//         query = query.where("sizes.name").in([...sizesSet]);
-//     }
-
-//     if (minPrice && maxPrice) {
-//         query = query.where("discountedPrice").gte(minPrice).lte(maxPrice);
-//     }
-
-//     if (minDiscount) {
-//         query = query.where("minDiscount").gt(minDiscount);
-//     }
-
-//     if (stock) {
-//         if (stock === "in_stock") { 
-//             query = query.where("quantity").gt(0);
-//         } else if (stock === "out_of_stock") { 
-//             query = query.where("quantity").lte(1);
-//         }
-//     }
-
-//     if (sort) {
-//         const sortDirection = sort === "price_high" ? -1 : 1;
-//         query = query.sort({ discountedPrice: sortDirection });
-//     }
-
-   
-//     const totalProductsQuery = await Product.find(query).countDocuments();
-    
-
-//     const totalProducts = totalProductsQuery;
-
-//     const skip = (pageNumber - 1) * pageSize; 
-//     query = query.skip(skip).limit(pageSize);
-
-//     const products = await query.exec();
-//     const totalPages = Math.ceil(totalProducts / pageSize);
-
-//     return { content: products, currentPage: pageNumber, totalPages: totalPages }; 
-// }
-
-
-
-
-
-
-
-
-
-// async function getAllProducts(reqQuery) {
-//     let { category, color, sizes, minPrice, maxPrice, minDiscount, sort, stock, pageSize, pageNumber } = reqQuery;
-
-//     pageSize = parseInt(pageSize) || 10; 
-//     pageNumber = parseInt(pageNumber) || 1;  
-
-//     let query = await Product.find().populate("category");
-
-//     if (category) {
-//         const exist = await Category.findOne({ name: category });
-//         if (exist) {
-//             query = query.where("category").equals(exist._id);
-//         } else {
-//             return { content: [], currentPage: 1, totalPages: 0 };
-//         }
-//     }               
-
-//     if (color) {
-//        const colorSet = new Set(color.split(",").map(color => color.trim().toLowerCase()));
-//         const colorRegex = colorSet.size > 0 ? RegExp([...colorSet].join("|"), "i") : null;
-//         query = query.where("color").regex(colorRegex);
-//     }
-
-//     if (sizes) {
-//         const sizesSet = new Set(sizes);
-//         query = query.where("sizes.name").in([...sizesSet]);
-//     }
-
-//     if (minPrice && maxPrice) {
-//         query =await query.where("discountedPrice").gte(minPrice).lte(maxPrice);
-//     }
-
-//     if (minDiscount) {
-//         query =await query.where("minDiscount").gt(minDiscount);
-//     }
-
-//     if (stock) {
-//         if (stock === "in_stock") { 
-//             query =await query.where("quantity").gt(0);
-//         } else if (stock === "out_of_stock") { 
-//             query =await query.where("quantity").lte(1);
-//         }
-//     }
-
-//     if (sort) {
-//         const sortDirection = sort === "price_high" ? -1 : 1;
-//         query = query.sort({ discountedPrice: sortDirection });
-//     }
-//     let paginationQuery = query.clone(); 
-
-// const totalProducts = await Product.countDocuments(query);
-// const skip = (pageNumber - 1) * pageSize; 
-// paginationQuery = paginationQuery.skip(skip).limit(pageSize)
-
-// const products = await paginationQuery.exec();
-// const totalPages = Math.ceil(totalProducts / pageSize);
-
-// return { content: products, currentPage: pageNumber, totalPages: totalPages };
-
-//     // const totalProducts = await Product.countDocuments(query);
-//     // const skip = (pageNumber - 1) * pageSize; 
-//     //  query = query.skip(skip).limit(pageSize)
-
-//     // const products = await query.exec();
-//     // const totalPages = Math.ceil(totalProducts / pageSize);
-
-//     // return { content: products, currentPage: pageNumber, totalPages: totalPages }; 
-// }
-
-
-
-
-
-
-
-
-
-
-
-
 

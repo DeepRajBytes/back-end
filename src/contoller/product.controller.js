@@ -71,6 +71,18 @@ const createmultipleproducts = async (req,res) => {
     return res.status(500).send({message:"multi product creation failed"})
 }
 }
+const addproducttowishlist = async (req , res)=>{
+    const userId= req.user._id
+    const productid = req.body.prodctid
+    // console.log("userid and product is is ",userId,productid);
+    try {
+        const messay = await ProductService.addProductToWishlist(userId,productid)
+        // console.log(user)
+        return res.status(200).send(messay)
+    } catch (error) {
+        return res.status(500).send({message:"can not get wishlist"})
+    }
+}
 
 module.exports = {
     createproducts,
@@ -79,6 +91,7 @@ module.exports = {
     findproductbyids,
     getAllProduct,
     updateproducts,
-    findproductbyParticularcategory
+    findproductbyParticularcategory,
+    addproducttowishlist
 
 }

@@ -11,5 +11,7 @@ router.get("/",userController.getallusers);
 
 router.put("/profile/update", authenticated, userController.updateuserprofile);
 
+router.get("/wishlist",authenticated,userController.wishlist)
+
 
 module.exports = router ; 

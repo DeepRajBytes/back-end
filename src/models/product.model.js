@@ -52,8 +52,7 @@ const Product = new mongoose.Schema({
                     type: String,
                     
                 }
-            
-        }
+            }
     ],
     ratings: [{
         type: mongoose.Schema.Types.ObjectId,

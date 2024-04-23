@@ -15,6 +15,7 @@ const authenticated = async (req, res, next) => {
         const userid = await jwtprovider.findIDbyToken(token);
         const user = await userService.finduserbyid(userid);
         req.user = user;
+        
     } catch (error) {
         return res.status(500).send({ error: error.message });
     }

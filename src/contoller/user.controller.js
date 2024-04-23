@@ -49,4 +49,17 @@ const updateuserprofile = async (req, res) => {
         return res.status(500).send({ error: error.message });
     }
 };
-module.exports = {getuserprofile , getallusers , getuserprofilebyid ,updateuserprofile}
+
+const wishlist = async (req, res) => {
+    const user = req.user
+    const UserId = user._id
+    
+    try {
+        const user = await userservice.wishlist(UserId);
+        return res.status(200).send(user);
+    } catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+
+};
+module.exports = {getuserprofile , getallusers , getuserprofilebyid ,updateuserprofile,wishlist}

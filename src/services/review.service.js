@@ -18,7 +18,6 @@ async function createReview(reqData,user){
     await review.save()
 
     Userdata.review.push(review);
-   
     product.reviews.push(review);
 
 

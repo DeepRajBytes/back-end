@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { type } = require('os');
 const userSchema =new mongoose.Schema({
     firstname:{
         type:String,
@@ -40,7 +41,11 @@ const userSchema =new mongoose.Schema({
     }],
     review:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"reviews"
+        ref:"review"
+    }],
+    wishlist:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"product"
     }],
     createdAT:[
         {
